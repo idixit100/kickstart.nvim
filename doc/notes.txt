@@ -1,0 +1,13 @@
+================================================================================
+INTRODUCTION                                                  *notes.nvim*
+
+Included are my custom notes and findings about vim features including tips, 
+tricks, shortcuts, and expansions on the original definitions. Note, that if
+a help entry exists and I have more to say, I will prepend with an e- prefix 
+(expanded). Note that on updating this file, run :helpt ~/.config/nvim/doc to
+regenerate the tags
+
+                                                                *an-example*
+wowie my first example doc
+
+ vim:tw=78:ts=8:ft=help:norl:
