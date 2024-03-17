@@ -20,68 +20,6 @@
 =====================================================================
 =====================================================================
 
-What is Kickstart?
-
-  Kickstart.nvim is *not* a distribution.
-
-  Kickstart.nvim is a starting point for your own configuration.
-    The goal is that you can read every line of code, top-to-bottom, understand
-    what your configuration is doing, and modify it to suit your needs.
-
-    Once you've done that, you can start exploring, configuring and tinkering to
-    make Neovim your own! That might mean leaving kickstart just the way it is for a while
-    or immediately breaking it into modular pieces. It's up to you!
-
-    If you don't know anything about Lua, I recommend taking some time to read through
-    a guide. One possible example which will only take 10-15 minutes:
-      - https://learnxinyminutes.com/docs/lua/
-
-    After understanding a bit more about Lua, you can use `:help lua-guide` as a
-    reference for how Neovim integrates Lua.
-    - :help lua-guide
-    - (or HTML version): https://neovim.io/doc/user/lua-guide.html
-
-Kickstart Guide:
-
-  TODO: The very first thing you should do is to run the command `:Tutor` in Neovim.
-
-    If you don't know what this means, type the following:
-      - <escape key>
-      - :
-      - Tutor
-      - <enter key>
-
-    (If you already know how the Neovim basics, you can skip this step)
-
-  Once you've completed that, you can continue working through **AND READING** the rest
-  of the kickstart init.lua
-
-  Next, run AND READ `:help`.
-    This will open up a help window with some basic information
-    about reading, navigating and searching the builtin help documentation.
-
-    This should be the first place you go to look when you're stuck or confused
-    with something. It's one of my favorite neovim features.
-
-    MOST IMPORTANTLY, we provide a keymap "<space>sh" to [s]earch the [h]elp documentation,
-    which is very useful when you're not sure exactly what you're looking for.
-
-  I have left several `:help X` comments throughout the init.lua
-    These are hints about where to find more information about the relevant settings,
-    plugins or neovim features used in kickstart.
-
-   NOTE: Look for lines like this
-
-    Throughout the file. These are for you, the reader, to help understand what is happening.
-    Feel free to delete them once you know what you're doing, but they should serve as a guide
-    for when you are first encountering a few different constructs in your nvim config.
-
-If you experience any errors while trying to install kickstart, run `:checkhealth` for more info
-
-I hope you enjoy your Neovim journey,
-- TJ
-
-P.S. You can delete this when you're done too. It's your config now! :)
 --]]
 
 -- Set <space> as the leader key
@@ -98,15 +36,21 @@ vim.g.have_nerd_font = false
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 
--- Make line numbers default
-vim.opt.number = true
--- You can also add relative line numbers, for help with jumping.
---  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
+--text + rendering
+vim.opt.encoding = 'utf-8'
+vim.opt.linebreak = true
+vim.opt.wrap = true
+vim.opt.syntax = 'on'
+-- vim.opt.sidescrolloff = 5 -- have wrapping so don't need
 
+-- line numbers and such
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.colorcolumn = '80'
+-- Show which line your cursor is on
+vim.opt.cursorline = true
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
-
 -- Don't show the mode, since it's already in status line
 vim.opt.showmode = false
 
@@ -115,15 +59,24 @@ vim.opt.showmode = false
 --  See `:help 'clipboard'`
 vim.opt.clipboard = 'unnamedplus'
 
--- Enable break indent
+-- indentation
 vim.opt.breakindent = true
+vim.opt.autoindent = true
+vim.opt.expandtab = true
+vim.opt.smarttab = true
+vim.opt.shiftround = true
+vim.opt.shiftwidth = 2
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
 
 -- Save undo history
 vim.opt.undofile = true
-
 -- Case-insensitive searching UNLESS \C or capital in search
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+-- Set highlight on search, but clear on pressing <Esc> in normal mode
+vim.opt.hlsearch = true
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Keep signcolumn on by default
 vim.opt.signcolumn = 'yes'
@@ -148,24 +101,22 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
 
--- Show which line your cursor is on
-vim.opt.cursorline = true
+vim.opt.shell = '/bin/zsh'
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
 -- [[ Basic Keymaps ]]
+local opts = { noremap = true, silent = true }
+-- note <C-v> is super useful for column select and has multi cursor effect
+local map = vim.keymap
 --  See `:help vim.keymap.set()`
 
--- Set highlight on search, but clear on pressing <Esc> in normal mode
-vim.opt.hlsearch = true
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
-
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+map.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
+map.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
+map.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
+map.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -173,22 +124,57 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 --
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+map.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- TIP: Disable arrow keys in normal mode
--- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
--- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
--- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
--- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
+map.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
+map.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
+map.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
+map.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 
 -- Keybinds to make split navigation easier.
---  Use CTRL+<hjkl> to switch between windows
 --
 --  See `:help wincmd` for a list of all window commands
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+--  See `:help notations` for how to represent different keys
+--  Note that terminal might not diffrentiate <S-h> vs. <H>
+--  Note: haven't gotten ctrl + shift to work in the form of <C-S-1>
+map.set('n', '<S-f>', '<S-j>', { desc = '[F]use lines' }) -- need to remmap join lines
+
+map.set('n', '<S-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+map.set('n', '<S-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+map.set('n', '<S-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+map.set('n', '<S-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+
+-- move window
+map.set('n', '<S-r>', '<C-w>R', { desc = 'Rotate window' })
+map.set('n', '<S-x>', '<C-w>x', { desc = 'Exchange window' })
+map.set('n', '<S-right>', '<C-w>L', { desc = 'Move the window right' })
+map.set('n', '<S-left>', '<C-w>H', { desc = 'Move the window left' })
+map.set('n', '<S-up>', '<C-w>K', { desc = 'Move the window up' })
+map.set('n', '<S-down>', '<C-w>J', { desc = 'Move the window down' })
+
+-- resize window
+map.set('n', '<C-=>', '<C-w>=', { desc = 'Resize windows to have the same height and width' })
+map.set('n', '<C-h>', '<C-W>>', { desc = 'Resize window to be horizontally larger' })
+map.set('n', '<C-l>', '<C-W><', { desc = 'Resize window to horizontally smaller' })
+map.set('n', '<C-k>', '<C-w>+', { desc = 'Resize window to be vertically larger' })
+map.set('n', '<C-j>', '<C-w>-', { desc = 'resize window to be vertically smaller' })
+
+-- Split window
+map.set('n', 'ss', ':split<Return>', opts)
+map.set('n', 'sv', ':vsplit<Return>', opts)
+map.set('n', '11', ':Vex<Return>', opts)
+map.set('n', '1v', ':Hex<Return>', opts)
+
+-- Increment / Decrement
+map.set('n', '+', '<C-a>', opts)
+map.set('n', '-', '<C-x>', opts)
+
+-- Copy all
+map.set('n', '<C-a>', 'gg<S-v>Gy<C-o>')
+
+-- Open config file
+map.set('n', '<leader>;', ':vsplit ~/.config/nvim/init.lua<Return>')
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -227,6 +213,7 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+  'theprimeagen/harpoon',
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -366,19 +353,19 @@ require('lazy').setup({
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
-      vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
-      vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
-      vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
-      vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-      vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
-      vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-      vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
-      vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+      map.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
+      map.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
+      map.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
+      map.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
+      map.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
+      map.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+      map.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
+      map.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
+      map.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
+      map.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
       -- Slightly advanced example of overriding default behavior and theme
-      vim.keymap.set('n', '<leader>/', function()
+      map.set('n', '<leader>/', function()
         -- You can pass additional configuration to telescope to change theme, layout, etc.
         builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
           winblend = 10,
@@ -541,7 +528,7 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         -- gopls = {},
-        -- pyright = {},
+        pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -549,8 +536,18 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
-        -- tsserver = {},
+        tsserver = {},
         --
+
+        -- ruby_ls = require('lspconfig').ruby_ls.setup {
+        --   cmd = { 'ruby-lsp' },
+        --   filetypes = { 'ruby' },
+        --   init_options = {
+        --     formatter = 'auto',
+        --   },
+        --   root_dir = root_pattern('Gemfile', '.git'),
+        --   single_file_support = true,
+        -- },
 
         lua_ls = {
           -- cmd = {...},
@@ -616,11 +613,11 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
+        python = { 'isort', 'black' },
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
-        -- javascript = { { "prettierd", "prettier" } },
+        javascript = { { 'prettierd', 'prettier' } },
       },
     },
   },
@@ -680,7 +677,7 @@ require('lazy').setup({
         --
         -- No, but seriously. Please read `:help ins-completion`, it is really good!
         mapping = cmp.mapping.preset.insert {
-          -- Select the [n]ext item
+          -- Select the [n]rxt item
           ['<C-n>'] = cmp.mapping.select_next_item(),
           -- Select the [p]revious item
           ['<C-p>'] = cmp.mapping.select_prev_item(),
@@ -712,6 +709,7 @@ require('lazy').setup({
               luasnip.expand_or_jump()
             end
           end, { 'i', 's' }),
+          -- to do change this
           ['<C-h>'] = cmp.mapping(function()
             if luasnip.locally_jumpable(-1) then
               luasnip.jump(-1)
@@ -860,5 +858,22 @@ require('lazy').setup({
   },
 })
 
+local mark = require 'harpoon.mark'
+local ui = require 'harpoon.ui'
+
+vim.keymap.set('n', '<leader>a', mark.add_file)
+vim.keymap.set('n', '<C-e>', ui.toggle_quick_menu)
+vim.keymap.set('n', '<C-1>', function()
+  ui.nav_file(1)
+end)
+vim.keymap.set('n', '<C-2>', function()
+  ui.nav_file(2)
+end)
+vim.keymap.set('n', '<C-3>', function()
+  ui.nav_file(3)
+end)
+vim.keymap.set('n', '<C-4>', function()
+  ui.nav_file(4)
+end)
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
