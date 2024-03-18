@@ -35,7 +35,7 @@ map.set('n', '<S-f>', '<S-j>', { desc = '[F]use lines' }) -- need to remmap join
 
 map.set('n', '<S-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
 map.set('n', '<S-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-map.set('n', '<S-u>', '<C-w><C-k>', { desc = 'Move focus to the upper window' }) -- gave up trying to remap <S-k>
+map.set('n', '<S-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' }) -- gave up trying to remap <S-k>
 map.set('n', '<S-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 
 -- move window
@@ -48,6 +48,8 @@ map.set('n', '<S-down>', '<C-w>J', { desc = 'Move the window down' })
 
 -- resize window
 map.set('n', '<C-=>', '<C-w>=', { desc = 'Resize windows to have the same height and width' })
+map.set('n', '<C-+>', '<C-w>_', { desc = 'Resize windows to have max width' })
+map.set('n', '<C-|>', '<C-w>|', { desc = 'Resize windows to have max width' })
 map.set('n', '<C-right>', '<C-W>>', { desc = 'Resize window to be horizontally larger' })
 map.set('n', '<C-left>', '<C-W><', { desc = 'Resize window to horizontally smaller' })
 map.set('n', '<C-up>', '<C-w>+', { desc = 'Resize window to be vertically larger' })
