@@ -155,10 +155,10 @@ map.set('n', '<S-down>', '<C-w>J', { desc = 'Move the window down' })
 
 -- resize window
 map.set('n', '<C-=>', '<C-w>=', { desc = 'Resize windows to have the same height and width' })
-map.set('n', '<C-h>', '<C-W>>', { desc = 'Resize window to be horizontally larger' })
-map.set('n', '<C-l>', '<C-W><', { desc = 'Resize window to horizontally smaller' })
-map.set('n', '<C-k>', '<C-w>+', { desc = 'Resize window to be vertically larger' })
-map.set('n', '<C-j>', '<C-w>-', { desc = 'resize window to be vertically smaller' })
+map.set('n', '<C-right>', '<C-W>>', { desc = 'Resize window to be horizontally larger' })
+map.set('n', '<C-left>', '<C-W><', { desc = 'Resize window to horizontally smaller' })
+map.set('n', '<C-up>', '<C-w>+', { desc = 'Resize window to be vertically larger' })
+map.set('n', '<C-down>', '<C-w>-', { desc = 'resize window to be vertically smaller' })
 
 -- Split window
 map.set('n', 'ss', ':split<Return>', opts)
