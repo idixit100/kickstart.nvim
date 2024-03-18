@@ -213,6 +213,7 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+  'metakirby5/codi.vim', -- Detect tabstop and shiftwidth automatically
   'theprimeagen/harpoon',
 
   -- NOTE: Plugins can also be added by using a table,
