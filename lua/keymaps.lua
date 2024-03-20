@@ -48,10 +48,10 @@ map.set('n', '<S-down>', '<C-w>J', { desc = 'Move the window down' })
 
 -- resize window
 map.set('n', '<C-=>', '<C-w>=', { desc = 'Resize windows to have the same height and width' })
-map.set('n', '<C-_>', '<C-w>_', { desc = 'Resize windows to have max width' })
-map.set('n', '<C-|>', '<C-w>|', { desc = 'Resize windows to have max height' })
-map.set('n', '<C-right>', '<C-W>>', { desc = 'Resize window to be horizontally larger' })
-map.set('n', '<C-left>', '<C-W><', { desc = 'Resize window to horizontally smaller' })
+map.set('n', '<C-Bslash>', '<C-w>_', { desc = 'Resize windows to have max height' })
+map.set('n', '<C-Enter>', '<C-w>|', { desc = 'Resize windows to have max width' })
+map.set('n', '<C-right>', '<C-w>>', { desc = 'Resize window to be horizontally larger' })
+map.set('n', '<C-left>', '<C-w><', { desc = 'Resize window to horizontally smaller' })
 map.set('n', '<C-up>', '<C-w>+', { desc = 'Resize window to be vertically larger' })
 map.set('n', '<C-down>', '<C-w>-', { desc = 'resize window to be vertically smaller' })
 
