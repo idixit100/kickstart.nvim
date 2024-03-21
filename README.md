@@ -213,3 +213,43 @@ choco install -y neovim git ripgrep wget fd unzip gzip mingw make
 ```
 
 Then, continue with the [Install Kickstart](#Install-Kickstart) step.
+
+
+### Cool Nvim Commands to know
+
+https://www.youtube.com/watch?v=5BU2gBOe9RU
+- o when in visual mode to go back and forth
+- :norm $a;
+- w vs. W (useful for punctuaion liek'this o'er here)
+
+### learnings
+
+lsp or language server protocols
+-- mason is basically a package manager for language servers and used to install them (rather than installing on your own)
+-- mason-lsp is communication between client (your editor) and mason
+-- lsp-config are the ways to set up commands and other things about your editor and communicates to the lsp
+-- this changes an m x n problem to an m + n problem
+
+treesitter
+
+autocompletion
+-- you have nvim-cmp which is the completion engine that gets you the menu
+-- you have luasnip with the actual snippets as well as the lsp
+-- you have nvim-lua-cmp that glues nvim-cmp and luasnip together so that cmp can get 
+suggestions from luasnip and then, once you select, sends over to luasnip to complete the snippet
+-- nvim-cmp-lsp is similar but with the lsp
+-- also take note of special keybinds to jump to next part of the snippet
+
+keybinds
+-- consider a few things including that some binds means that you will have to be in normal mode (eg. if using a leader key)
+-- also if you have a base key and then add other characters to it, hitting the base key will slow things down, so should map carefully
+-- in vim, chords like Ctrl + shift are harder to do 
+
+### things left to do 
+
+[] tmux config + integration with vim 
+[] potentially toggle term
+[] git workflows and other shortcuts including vim fugitive
+[] ruby lsp
+[] database integration
+
