@@ -1,4 +1,5 @@
 -- [[ Basic Keymaps ]]
+--
 local opts = { noremap = true, silent = true }
 -- note <C-v> is super useful for column select and has multi cursor effect
 --  See `:help vim.keymap.set()`
