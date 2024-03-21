@@ -59,8 +59,11 @@ map.set('n', '<C-down>', '<C-w>-', { desc = 'resize window to be vertically smal
 -- Split window
 map.set('n', 'ss', ':split<Return>', opts)
 map.set('n', 'sv', ':vsplit<Return>', opts)
-map.set('n', '11', ':Vex<Return>', opts)
-map.set('n', '1v', ':Hex<Return>', opts)
+map.set('n', '<leader>1', ':Vex<Return>', opts)
+map.set('n', '<leader>1h', ':Vex<Return>', opts)
+map.set('n', '<leader>1l', ':Vex!<Return>', opts)
+map.set('n', '<leader>1j', ':Hex<Return>', opts)
+map.set('n', '<leader>1k', ':Hex!<Return>', opts)
 
 -- Increment / Decrement
 map.set('n', '+', '<C-a>', opts)
